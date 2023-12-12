@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang=en>
+  <head>
+    <meta charset=UTF-8>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title></title>
+    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css>
+    <script src=https://glad432.github.io/js/tailwind.min.js rel=stylesheet></script>
+    <link rel="shortcut icon" href=https://bot-bmtc.github.io/icon.webp type=image/x-icon>
+    <meta property=og:image content=https://bot-bmtc.github.io/icon.webp>
+    <meta property=og:image:secure_url content=https://bot-bmtc.github.io/icon.webp>
+    <meta name=description content="Book BMTC bus tickets on the go! Our mobile ticketing app allows you to securely buy tickets, track buses in real-time, and travel across Bangalore easily. Eco-friendly, fast and convenient!">
+    <meta name=og:description content="Book BMTC bus tickets on the go! Our mobile ticketing app allows you to securely buy tickets, track buses in real-time, and travel across Bangalore easily. Eco-friendly, fast and convenient!">
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
+    <header class="bg-blue-600 text-white px-4 py-3 md:py-6">
+      <div class="container mx-auto flex flex-col md:flex-row justify-between items-center"><a href=https://bot-bmtc.github.io>
+          <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold"><i class="fa-solid fa-bus fa-shake"></i> BOT BMTC Ticket Booking</h1>
+        </a>
+        <nav class="mt-4 md:mt-0 text-2xl"><a href=https://bot-bmtc.github.io/advertisement target=_blank>View Advertisement</a></nav>
+      </div>
+    </header>
+    <div class="bg-white p-4 md:p-8 lg:p-10 xl:p-12 rounded-md shadow-md">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 md:mb-6 text-gray-800">Discover the BMTC Ticket Booking App</h1>
+      <p class="text-base md:text-lg lg:text-xl text-gray-700 mb-4 md:mb-6"> Experience the unparalleled convenience of BMTC ticket booking right at your fingertips through our state-of-the-art mobile app. Bid farewell to tedious queues and relish a journey free from hassles every single time. Our user-friendly interface ensures a seamless and efficient booking process, allowing you to plan your travels effortlessly. With the BMTC Ticket Booking App, enjoy the freedom to schedule and manage your trips, keeping you in control of your transportation needs. Embrace a smarter way to travel, ensuring a stress-free and enjoyable experience for your every commute. </p>
+    </div>
+    <div id=frame class="container mx-auto text-center"></div>
+    <footer class="bg-blue-600 text-white text-center py-6">
+      <div class="container mx-auto">
+        <p>&copy; <span id=yr></span> BOT BMTC Ticket Booking</p>
+      </div>
+    </footer>
+    <script>
+      var iframe = document.createElement("iframe");
+      const id = "18aQjaBvPKJeVCzcAGiS4A0BEChm_rzHM";
+      iframe.src = `https://drive.google.com/file/d/${id}/preview`,
+      iframe.width = "640",
+      iframe.height = "400",
+      iframe.frameBorder = "0",
+      iframe.loading = "lazy",
+      iframe.allowFullscreen = !0,
+      iframe.className = "w-full",
+      document.getElementById("frame").appendChild(iframe);
+      const currentYear = (new Date).getFullYear();
+      document.getElementById("yr").textContent = currentYear
+    </script>
+  </body>
+</html>
