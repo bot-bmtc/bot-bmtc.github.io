@@ -3,9 +3,14 @@
   <head>
     <meta charset=UTF-8>
     <TITle>BOT BMTC Ticket Booking</TITle>
-    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name=viewport content="width=device-width,initial-scale=1">
     <script src="https://glad432.github.io/js/tailwind.min.js" rel="stylesheet"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css>
+    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css>
+    <link rel=stylesheet href=https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css>
+    <script src=https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js></script>
+    <script src=https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js></script>
     <link rel="shortcut icon" href="https://bot-bmtc.github.io/icon.webp" type="image/x-icon">
     <meta property="og:image" content="https://bot-bmtc.github.io/icon.webp" />
     <meta property="og:image:secure_url" content="https://bot-bmtc.github.io/icon.webp" />
@@ -40,7 +45,40 @@
         </div>
       </div>
     </section>
-    <section id=about class="bg-gray-100 py-12 m-12">
+    <div class="relative max-w-md mx-auto bg-white m-4 p-8 rounded-md shadow-md">
+      <h2 class="text-2xl font-semibold mb-4">BMTC Bus Stand Route Planner <i class="fa-solid fa-map-location-dot"></i></h2>
+      <form id="routeForm" class="md:flex md:flex-wrap">
+        <div class="md:w-1/2 pr-4 mb-4"><label class="block mb-2" for="from">From Bus Stand: <i class="fa-solid fa-bus-simple"></i></label><select id="from" name="from" class="w-full p-2 border rounded-md text-xs">
+            <option>Select Bus stand</option>
+            <option value=majestic>Majestic Bus Stand</option>
+            <option value=shivajinagar>Shivajinagar Bus Stand</option>
+            <option value=banashankari>Banashankari Bus Stand</option>
+            <option value=silkboard>Silkboard Bus Stand</option>
+            <option value=electroniccity>Electronic City Bus Stand</option>
+            <option value=koramangala>Koramangala Bus Stand</option>
+            <option value=jayanagar>Jayanagar Bus Stand</option>
+            <option value=whitefield>Whitefield Bus Stand</option>
+            <option value=krpuram>KR Puram Bus Stand</option>
+            <option value=malleshwaram>Malleshwaram Bus Stand</option>
+          </select></div>
+        <div class="md:w-1/2 pl-4 mb-4"><label class="block mb-2" for="to">To Bus Stand: <i class="fa-solid fa-bus-simple"></i></label><select id="to" name="to" class="w-full p-2 border rounded-md text-xs">
+            <option>Select Bus stand</option>
+            <option value=shivajinagar>Shivajinagar Bus Stand</option>
+            <option value=majestic>Majestic Bus Stand</option>
+            <option value=banashankari>Banashankari Bus Stand</option>
+            <option value=silkboard>Silkboard Bus Stand</option>
+            <option value=electroniccity>Electronic City Bus Stand</option>
+            <option value=koramangala>Koramangala Bus Stand</option>
+            <option value=jayanagar>Jayanagar Bus Stand</option>
+            <option value=whitefield>Whitefield Bus Stand</option>
+            <option value=krpuram>KR Puram Bus Stand</option>
+            <option value=malleshwaram>Malleshwaram Bus Stand</option>
+          </select></div>
+        <div class="md:w-full mb-4 text-center mx-auto"><button type="button" onclick="planRoute()" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Check <i class="fa-solid fa-check-double"></i></button><button type="button" onclick="clearRoute()" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Clear <i class="fa-solid fa-broom"></i></button><button type="button" onclick="reverseRoute()" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Reverse <i class="fa-solid fa-clock-rotate-left"></i></button></div>
+      </form>
+      <div id="map" class="mt-8" style="height: 300px;"></div>
+    </div>
+    <section id=about class="bg-gray-100 py-12 m-4">
       <div class="max-w-4xl mx-auto p-8 bg-gray-200 rounded-lg shadow-lg mb-12">
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">About Our Solution <i class="fas fa-info-circle fa-fade"></i></h1>
         <p class="text-lg md:text-xl lg:text-2xl"> We have built an easy-to-use and convenient BMTC bus ticketing app to provide commuters a smooth, environmentally friendly, and modern traveling experience. </p>
@@ -80,7 +118,7 @@
         </div>
       </div>
     </section>
-    <section id=team class="bg-white py-6 md:py-10 mb-8 md:mb-16">
+    <section id=team class="bg-white py-6 md:py-10 m-4 md:mb-16">
       <div class="container mx-auto text-center">
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-8">Meet Our Team <i class="fa-solid fa-people-group fa-fade"></i></h2>
         <div class="flex flex-wrap justify-center gap-6">
@@ -121,6 +159,58 @@
       </div>
     </footer>
     <script>
+      var routingControl, map = L.map("map").setView([12.971598, 77.594562], 12);
+
+      function planRoute() {
+        var t = document.getElementById("from").value,
+          e = document.getElementById("to").value;
+        routingControl && map.removeControl(routingControl), routingControl = L.Routing.control({
+          waypoints: [L.latLng(getCoordinates(t)), L.latLng(getCoordinates(e))],
+          routeWhileDragging: true,
+        }).addTo(map)
+      }
+
+      function getCoordinates(t) {
+        switch (t) {
+          case "majestic":
+            return [12.9776, 77.5726];
+          case "shivajinagar":
+            return [12.9837, 77.6028];
+          case "banashankari":
+            return [12.9177, 77.5741];
+          case "silkboard":
+            return [12.9169, 77.6219];
+          case "electroniccity":
+            return [12.8415, 77.6759];
+          case "koramangala":
+            return [12.9366, 77.5834];
+          case "jayanagar":
+            return [12.9365, 77.5817];
+          case "whitefield":
+            return [12.9692, 77.7352];
+          case "krpuram":
+            return [13.004725, 77.687592];
+          case "malleshwaram":
+            return [13.0073102220426, 77.5681503555324];
+          default:
+            return [0, 0]
+        }
+      }
+
+      function clearRoute() {
+        routingControl && map.removeControl(routingControl)
+      }
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map)
+
+      function reverseRoute() {
+        var fromSelect = document.getElementById("from");
+        var toSelect = document.getElementById("to");
+        var fromValue = fromSelect.value;
+        var toValue = toSelect.value;
+        fromSelect.value = toValue;
+        toSelect.value = fromValue;
+        planRoute();
+      }
       const currentYear = (new Date).getFullYear();
       document.getElementById("yr").textContent = currentYear
     </script>
